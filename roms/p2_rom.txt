@@ -1,0 +1,75 @@
+P2:	SETX	R1, R0, 1	-- R1 = PSW, TP = 1024 cycles
+
+1110 10 00001 00000 0000 0000 0000 0001
+
+	ADDI	R2, R0, 0	-- R2 = 0, loop counter
+	
+0000 01 00010 00000 0000 0000 0000 0000
+	
+	ADDI	R3, R0, 0x0001	-- R3 = mask for checking IBx
+	
+0000 01 00011 00000 0000 0000 0000 0001
+	
+	ADDI	R4, R0, 0x0010	-- R4 = mask for setting OBx
+	
+0000 01 00100 00000 0000 0000 0001 0000
+	
+L1:	AND	R5, R1, R3	-- Check if IBx is set
+
+1011 00 00101 00001 00011 000 0000 0000
+
+	BEQ	R5, R0, L3	-- If IBx is not set, skip to L3
+	
+0100 11 00101 00000 0000 0000 0000 1001 L3
+0000 00 00000 00000 0000 0000 0000 0000
+	
+	GET	R6, R0, R3	-- R6 = corresponding input byte
+	
+1000 01 00110 00000 00011 000 0000 0000
+	
+	CMP	R5, R6, R0	-- Check if it is negative
+	
+0110 00 00101 00110 00000 000 0000 0000
+	
+	BEQ	R5, R0,	L2	-- Skip to L2 if it is not negative
+	
+0100 11 00101 00000 0000 0000 0000 0011 L2
+0000 00 00000 00000 0000 0000 0000 0000
+	
+	ADD	R6, R0, R0	-- Otherwise, set R6 to zero
+	
+0000 00 00110 00000 00000 000 0000 0000
+	
+L2:	PUT	R6, R0, R4	-- Output R6 on corresponding output port
+
+1001 01 00110 00000 00100 000 0000 0000
+
+L3:	SHZI	R3, R3, 2	-- Adjust IBx mask for next byte
+
+0100 01 00011 00011 0000 0000 0000 0010
+
+	SHZI	R4, R4, 2	-- Adjust OBx mask for next byte
+	
+0100 01 00100 00100 0000 0000 0000 0010
+	
+	ADDI	R2, R2, 1	-- Add one to loop counter
+	
+0000 01 00010 00010 0000 0000 0000 0001
+	
+	CMPI	R5, R2, 4	-- Check if all input bytes have been checked
+	
+0110 01 00101 00010 0000 0000 0000 0100
+	
+	BNE	R5, R0, L1	-- If not, loop back to L1
+	
+0101 11 00101 00000 1111 1111 1111 0011 L1
+0000 00 00000 00000 0000 0000 0000 0000
+	
+	RESETI	R0, R0, Ox8000	-- Finished, enable timer interrupt
+	
+1111 01 00000 00000 1000 0000 0000 0000
+	
+END:	BEQ	R0, R0, -4	-- Wait for next timer interrupt
+
+0100 11 00000 00000 0000 0000 0000 0000
+0000 00 00000 00000 0000 0000 0000 0000
