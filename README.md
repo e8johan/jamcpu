@@ -37,6 +37,6 @@ later version. See LICENSE for more information.
 
 
 (C) 2002 
-Anders Lindström - e8cal1@etek.chalmers.se or cal@swipnet.se
+Anders LindstrÃ¶m - e8cal1@etek.chalmers.se or cal@swipnet.se
 Michael Nordseth - e8mn@etek.chalmers.se
-Johan E. Thelin  - e8johan@etek.chalmers.se
+Johan E. Thelin  - e8johan using gmail.
