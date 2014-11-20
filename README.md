@@ -36,7 +36,7 @@ Software Foundation; either version 2.1 of the License, or (at your option) any
 later version. See LICENSE for more information.
 
 
-(C) 2002 
-Anders Lindström - e8cal1@etek.chalmers.se or cal@swipnet.se<br />
-Michael Nordseth - e8mn@etek.chalmers.se<br />
-Johan E. Thelin  - e8johan using gmail<br />
+(C) 2002 - 2014
+Anders Lindström<br />
+Michael Nordseth - e8mn at github<br />
+Johan E. Thelin  - e8johan at github<br />
